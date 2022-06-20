@@ -33,7 +33,7 @@ function App() {
   }
 
   const onDelete = () =>{
-    if (currAttempt.letterPos== 0) return;
+    if (currAttempt.letterPos === 0) return;
     const newBoard = [...board];
     newBoard[currAttempt.attempt][currAttempt.letterPos- 1] = "";
     setBoard(newBoard);
@@ -48,9 +48,10 @@ function App() {
       currWord += board[currAttempt.attempt][i];
     }
 
-    if (wordSet.has(currWord.toLowerCase())) {
+    if (wordSet.has(currWord.charAt(0).toUpperCase() + currWord.slice(1).toLowerCase())) {
       setCurrAttempt({attempt: currAttempt.attempt +1, letterPos: 0});
     } else{
+      console.log(currWord)
       alert("Word not found");
     }
 
@@ -86,6 +87,7 @@ function App() {
           }}>
         <Board/>
         <div>
+          <br /> 
           Hint: {wordHint}
         </div>
         {gameOver.gameOver ? <GameOver/> : <Keyboard />}

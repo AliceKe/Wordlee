@@ -1,9 +1,8 @@
 
-const words = {
-    "alice": "blues", 
-    "right" : "wrong",
-    "trust" : "faith",
-    "mouth" : "noses",
-    "flung" : "frost"
+const wordBank = {
+    "Alice": "The name these poor folks can pronounce", 
+    "Blues" : "My stolen Chinese name :( ",
+    "Plank" : ":)"
 }
 
+export {wordBank};

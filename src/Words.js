@@ -1,4 +1,5 @@
-import wordBank from "./word-bank.txt";
+// import wordBank from "./word-bank.txt";
+import {wordBank} from "./Hints.js";
 
 export const boardDefault = [
     ["", "", "", "", ""], 
@@ -9,29 +10,12 @@ export const boardDefault = [
     ["", "", "", "", ""],
 ];
 
-
-const words = {
-    "alice": "blues", 
-    "right" : "wrong",
-    "trust" : "faith",
-    "mouth" : "noses",
-    "flung" : "frost"
-};
-
 export const generateWordSet = async () => {
-    let wordSet = new Set(["Alice", "Ke"]);
-    let todaysWord = "Alice";
-    let todaysHint = "I am not Chinese :(";
+    const wordSet = new Set(Object.keys(wordBank))
+    let todaysWord = Array.from(wordSet)[Math.floor(Math.random() * wordSet.size)];
+    let todaysHint = wordBank[todaysWord];
 
-    // await fetch(wordBank)
-    //     .then((response) => response.text())
-    //     .then( (result) => {
-    //         const wordArr = result.split("\n");
-    //         todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
-    //         wordSet = new Set(wordArr);
-    //     });
-
-    console.log(words);
-
+    console.log(todaysWord, todaysHint)
+    console.log(wordSet)
      return {wordSet, todaysWord, todaysHint};
 };
