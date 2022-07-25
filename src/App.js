@@ -48,7 +48,8 @@ function App() {
       currWord += board[currAttempt.attempt][i];
     }
 
-    if (wordSet.has(currWord.charAt(0).toUpperCase() + currWord.slice(1).toLowerCase())) {
+    // if (wordSet.has(currWord.charAt(0).toUpperCase() + currWord.slice(1).toLowerCase())) {
+      if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({attempt: currAttempt.attempt +1, letterPos: 0});
     } else{
       console.log(currWord)
