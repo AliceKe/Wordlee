@@ -17,12 +17,15 @@ function GameOver() {
         {gameOver.guessedWord ? 
             <audio 
                 src = "../assets/ovation.mp3"
-                autoPlay="true"
+                autoPlay
+                volume="0.9"
                 >
+                    Your browser does not support the <code>audio</code> element.
             </audio> : 
             <audio 
                 src = "../assets/Sad_Trombone.mp3"
-                autoPlay="true"
+                autoPlay
+                volume="1.0"
                 >
             </audio>
         }
