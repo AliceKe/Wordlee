@@ -30,6 +30,7 @@ export const generateWordSet = async () => {
       wordSet = new Set(wordArr);
     });
 
-    console.log(wordSet)
+    console.log(todaysWord)
+
     return {wordSet, todaysWord, todaysHint};
 };

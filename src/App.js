@@ -4,6 +4,7 @@ import Keyboard from "./components/Keyboard";
 import React, {createContext, useEffect, useState} from 'react';
 import { boardDefault, generateWordSet } from "./Words";
 import GameOver from './components/GameOver';
+import ovation from './assets/ovation.mp3';
 
 export const AppContext = createContext();
 
@@ -49,14 +50,15 @@ function App() {
     }
 
     // if (wordSet.has(currWord.charAt(0).toUpperCase() + currWord.slice(1).toLowerCase())) {
-      if (wordSet.has(currWord.toLowerCase())) {
+    if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({attempt: currAttempt.attempt +1, letterPos: 0});
     } else{
       console.log(currWord)
       alert("Word not found");
     }
 
-    if (currWord === correctWord){
+    // if (currWord === correctWord){
+    if (currWord.toLowerCase() == correctWord) {
       setGameOver({gameOver: true, guessedWord: true});
       return;
     } 
@@ -87,11 +89,11 @@ function App() {
           setGameOver,
           }}>
         <Board/>
-        <div>
+        {!gameOver.gameOver && <div>
           <br /> 
           Hint: {wordHint}
-        </div>
-        {gameOver.gameOver ? <GameOver/> : <Keyboard />}
+        </div>}
+        {gameOver.gameOver ? <GameOver/> : <Keyboard/>}
       </AppContext.Provider>
     </div>
   );
