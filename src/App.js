@@ -5,8 +5,9 @@ import React, {createContext, useEffect, useState} from 'react';
 import { boardDefault, generateWordSet } from "./Words";
 import GameOver from './components/GameOver';
 import Timer from './components/Timer';
-import ovation from './assets/ovation.mp3';
 import background from "./assets/mountains.jpg";
+import sound from "./assets/sunrays.wav";
+import {SiApplemusic} from 'react-icons/si'
 
 export const AppContext = createContext();
 
@@ -19,6 +20,8 @@ function App() {
   const [correctWord, setCorrectWord] = useState("");
   const [wordHint, setWordHint] = useState("");
   const [counter, setCounter] = useState(300);
+  const audioElement = new Audio(sound);
+  const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect( () => {
     generateWordSet().then( (words) => {
@@ -27,15 +30,6 @@ function App() {
       setWordHint(words.todaysHint);
     })
   }, []);
-  
-  const calculateTimeLeft = () => {
-    if(counter > 0){
-      setTimeout(()=>setCounter(counter - 1), 1000);
-    }
-    else if (counter === 0 ){
-      setGameOver(true);
-    }
-  }
 
   const onSelectLetter = (keyVal) =>{
     if (currAttempt.letterPos > 4) return;
@@ -81,8 +75,21 @@ function App() {
     }
   };
 
+  const togglePause = () => {
+    if (isPlaying) {
+      // Pause the song if it is playing
+      audioElement.pause();
+    } else {
+      // Play the song if it is paused
+      audioElement.play();
+    }
+    // Change the state of song
+    setIsPlaying( { isPlaying: !isPlaying })
+    console.log(isPlaying)
+  }
+
   return (
-    <div className="App" style={{ backgroundImage: `url(${background})` }}>
+    <div className="App" style={{ backgroundImage: `url(${background})` }}>  
       <nav>
         <h1>Wordle</h1>
       </nav>
@@ -103,6 +110,13 @@ function App() {
           gameOver,
           setGameOver,
           }}>
+          <button
+            onClick = {togglePause}
+            className = "sound"
+            >
+            {/* <AiFillPlayCircle/> */}
+            <SiApplemusic/>
+          </button>    
         <Board/>
         {!gameOver.gameOver && <div>
           <br /> 
