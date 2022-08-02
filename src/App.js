@@ -4,7 +4,9 @@ import Keyboard from "./components/Keyboard";
 import React, {createContext, useEffect, useState} from 'react';
 import { boardDefault, generateWordSet } from "./Words";
 import GameOver from './components/GameOver';
+import Timer from './components/Timer';
 import ovation from './assets/ovation.mp3';
+import background from "./assets/mountains.jpg";
 
 export const AppContext = createContext();
 
@@ -16,6 +18,7 @@ function App() {
   const [gameOver, setGameOver] = useState({gameOver: false, guessedWord: false});
   const [correctWord, setCorrectWord] = useState("");
   const [wordHint, setWordHint] = useState("");
+  const [counter, setCounter] = useState(300);
 
   useEffect( () => {
     generateWordSet().then( (words) => {
@@ -24,6 +27,15 @@ function App() {
       setWordHint(words.todaysHint);
     })
   }, []);
+  
+  const calculateTimeLeft = () => {
+    if(counter > 0){
+      setTimeout(()=>setCounter(counter - 1), 1000);
+    }
+    else if (counter === 0 ){
+      setGameOver(true);
+    }
+  }
 
   const onSelectLetter = (keyVal) =>{
     if (currAttempt.letterPos > 4) return;
@@ -58,7 +70,7 @@ function App() {
     }
 
     // if (currWord === correctWord){
-    if (currWord.toLowerCase() == correctWord) {
+    if (currWord.toLowerCase() === correctWord) {
       setGameOver({gameOver: true, guessedWord: true});
       return;
     } 
@@ -70,10 +82,13 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundImage: `url(${background})` }}>
       <nav>
         <h1>Wordle</h1>
       </nav>
+      {!gameOver.gameOver &&
+        <Timer min = {0}/>
+      }
       <AppContext.Provider value = {{
           board, 
           setBoard, 
